@@ -46,9 +46,5 @@ solution = Solution()
 
 # 反转链表
 new_head = solution.reverseList(node1)
-
-# 打印反转后的链表
-current = new_head
-while current:
-    print(current.val, end=" -> " if current.next else "-> None")
-    current = current.next
+#打印反转后的链表
+print_List(new_head)

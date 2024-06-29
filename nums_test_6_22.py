@@ -11,7 +11,7 @@
 
 from typing import List
 
-class Solution:
+class Solution():
     def sortedSquares(self, nums: List[int]) -> List[int]:
         l, r, i = 0, len(nums) - 1, len(nums) - 1
         res = [float('inf')] * len(nums)  # 列表初始化：[...] * len(nums)是Python中的列表乘法操作，它将中括号内的元素（这里是float('inf')）复制len(nums)次，创建一个新的列表。因此，如果nums的长度是5，那么res将会是[float('inf'), float('inf'), float('inf'), float('inf'), float('inf')]
