@@ -11,6 +11,8 @@ class ListNode:
 class Solution:
     # 移除链表中值为val的所有节点
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        #Optional[ListNode] 表示这个参数可以是 ListNode 类型的对象，也可以是 None（即链表为空）
+        
         # 创建虚拟头部节点，它的next指向head，这样我们就不需要特殊处理头节点的删除
         dummy_head = ListNode(next=head)
         
