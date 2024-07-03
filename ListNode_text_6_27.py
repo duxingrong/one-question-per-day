@@ -2,7 +2,9 @@
 题意：反转一个单链表。
 示例: 输入: 1->2->3->4->5->NULL 输出: 5->4->3->2->1->NULL
 """
-
+"""
+难点在于想到递归来一次次改变箭头,并且知道递归怎么结束的条件。
+"""
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, val=0, next=None):

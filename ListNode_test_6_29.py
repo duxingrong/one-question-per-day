@@ -2,6 +2,9 @@
 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
 双指针的经典应用
 """
+"""
+利用双指针,让当fast指向None时,slow刚好指向倒数第n个节点的前一个节点,利用slow.next=slow.next.next即可删去倒数第n个节点
+"""
 
 # Definition for singly-linked list.
 class ListNode:

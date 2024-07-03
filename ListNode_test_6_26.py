@@ -75,23 +75,23 @@ class MyLinkedList:
             self.size += 1
 
     def deleteAtIndex(self, index: int) -> None:
-        if index < 0 or index >= self.size:
+        if index < 0 or index >= self.size:  #考虑是否没有意义
             return
         
-        if index == 0:
+        if index == 0:                       #考虑为头节点时，头节点也要更新
             self.head = self.head.next
             if self.head:
                 self.head.prev = None
             else:
                 self.tail = None
-        elif index == self.size - 1:
+        elif index == self.size - 1:          #考虑为尾节点时，尾节点也要更新
             self.tail = self.tail.prev
             if self.tail:
                 self.tail.next = None
             else:
                 self.head = None
-        else:
-            if index < self.size // 2:
+        else:                                 #一般情况
+            if index < self.size // 2:        
                 current = self.head
                 for i in range(index):
                     current = current.next

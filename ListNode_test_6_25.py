@@ -1,4 +1,6 @@
-
+"""
+删除链表中值为val的节点
+"""
 from typing import Optional
 
 # 定义链表节点的类

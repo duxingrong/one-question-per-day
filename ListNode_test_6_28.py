@@ -5,6 +5,9 @@
 1->2->3->4
 2->1->4->3
 """
+"""
+想到递归,每一次都对新的头节点进行函数操作
+"""
 # 递归版本
 from typing import Optional
 class ListNode:
