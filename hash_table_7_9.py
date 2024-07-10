@@ -30,14 +30,14 @@ class Solution():
                     left+=1
                 else:
                     result.append([nums[i],nums[left],nums[right]])
-                #要在得到一组后进行去除，将与得到的相同的b,c都去掉，然后再正常的继续移动指针，将剩下的b,c找到
-                while right>left and nums[right]==nums[right-1]:
-                    right-=1        #对c去重
-                while right>left and nums[left]==nums[left+1]:
-                    left+=1          #对b去重
-                 
-                right -= 1
-                left += 1       
+                #要在得到一组后进行要进行去除，将与得到的相同的b,c都去掉，然后再正常的继续移动指针，将剩下的b,c找到
+                    while right>left and nums[right]==nums[right-1]:
+                        right-=1        #对c去重
+                    while right>left and nums[left]==nums[left+1]:
+                        left+=1          #对b去重
+                    
+                    right-= 1
+                    left+= 1       
         
         return result
 
