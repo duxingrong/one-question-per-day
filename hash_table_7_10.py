@@ -13,12 +13,12 @@ class Solution():
         result=[]    #定义一个空列表来存放得到的元组
         nums.sort()  #排序
         for i in range(len(nums)):
-            if nums[i]>target and nums[i]>0 and target>0:
+            if nums[i]>target and nums[i]>0 and target>0:  #这里这个target>0有必要吗？
                 break
             if i>0 and nums[i]==nums[i-1]:
                 continue
             for j in range(i+1,len(nums)):
-                if nums[i]+nums[j]>target and target>0:
+                if nums[i]+nums[j]>target and target>0:    #同理，这里>0有必要吗？
                     break
                 if j>i+1 and nums[j]==nums[j-1]:
                     continue
