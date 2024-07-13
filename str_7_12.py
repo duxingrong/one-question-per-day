@@ -19,7 +19,7 @@ class Solution:
         3. 用切片整体替换，而不是一个个替换.
         """
         def reverse_substring(text):
-            left, right = 0, len(text) - 1
+            left, right =  0 ,len(text) - 1
             while left < right:
                 text[left], text[right] = text[right], text[left]
                 left += 1
