@@ -18,21 +18,23 @@ class Solution:
         2. 对于字符串s = 'abc'，如果使用s[0:999] ===> 'abc'。字符串末尾如果超过最大长度，则会返回至字符串最后一个值，这个特性可以避免一些边界条件的处理。
         3. 用切片整体替换，而不是一个个替换.
         """
+        
         def reverse_substring(text):
+        #定义了一个函数，将text反转
             left, right =  0 ,len(text) - 1
             while left < right:
                 text[left], text[right] = text[right], text[left]
                 left += 1
                 right -= 1
             return text
-        
+        #将s变成链表
         res = list(s)
-
+        #每次取出2k单位来操作
         for cur in range(0, len(s), 2 * k):
             res[cur: cur + k] = reverse_substring(res[cur: cur + k])
-        
+        #res[cur: cur + k] 表示从列表 res 中取出从索引 cur 到 cur + k（左闭右开）
         return ''.join(res)
-
+        #"".join()，将序列中的元素连接成单一的字符串
 s = "abcdefg"
 k = 2
 print(s)
