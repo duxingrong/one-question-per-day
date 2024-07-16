@@ -7,7 +7,7 @@
 
 示例 1: 给定 nums = [3,2,2,3], val = 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。 你不需要考虑数组中超出新长度后面的元素。
 
-示例 2: 给定 nums = [0,1,2,2,3,0,4,2], val = 2, 函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。
+示例 2: 给定 nums = [0,1,2,2,3,0,4,2], val = 2, 函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 4, 0, 3
 """                 
 #之前做过
 # from typing import List
@@ -38,13 +38,13 @@ class Solution():
         r=len(nums)-1
         #开始遍历
         while l<=r:
-            while l<=r and nums[l]!=val :
+            while l<=r and nums[l]!=val :    #l指针遇到val才停止
                 l+=1
-            while l<=r and nums[r]==val:
+            while l<=r and nums[r]==val:     #r指针遇到非val才停止
                 r-=1
             if l<r:
-                nums[l],nums[r]=nums[r],nums[l]
-        return l
+                nums[l],nums[r]=nums[r],nums[l] #这是交换，刚好可以把val换去右边，非val换到左边
+        return l        #left移动一次，就会多一个非val 因为left从0开始
 nums=[0,1,2,2,3,0,4,2]
 val=2
 solution=Solution()
