@@ -42,9 +42,9 @@ class MyQueue():
     def empty(self)->bool:
         return  not  (self.stack_in or self.stack_out)
 
-    def __str__(self) -> str:
+    def __str__(self) -> str:  
         """
-        返回队列的字符串表示
+        返回队列的字符串表示，让数据结构可以显示
         """
         if self.stack_out:
             return str(self.stack_out[::-1] + self.stack_in)
