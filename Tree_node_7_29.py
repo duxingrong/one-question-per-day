@@ -1,7 +1,8 @@
 """
 二叉树的层次遍历
 """
-from typing import List
+from typing import List ,Optional
+from collections import deque
 
 class TreeNode:
     def __init__(self,val:int,left:None,right:None):
@@ -14,7 +15,7 @@ class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
-        queue = collections.deque([root])
+        queue = deque([root])
         result = []
         while queue:
             level = []
