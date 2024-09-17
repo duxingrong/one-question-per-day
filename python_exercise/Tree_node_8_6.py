@@ -1,60 +1,66 @@
 """
-相同的树
+相同的树,那就是看每个位置的元素是不是一样的,直接层序遍历出二维数组最简单
 """
+from typing import Optional
+from collections import deque
 class TreeNode():
-    def __init__(self,val:int,left:None,right:None):
+    def __init__(self,val=0,left=None,right=None):
         self.val=val
         self.left=left
         self.right=right
-        
-class Solution:
-    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        return self.compare(p, q)
-        
-    def compare(self, tree1, tree2):
-        if not tree1 and tree2:
-            return False
-        elif tree1 and not tree2:
-            return False
-        elif not tree1 and not tree2:
-            return True
-        elif tree1.val != tree2.val: #注意这里我没有使用else
-            return False
-        
-        #此时就是：左右节点都不为空，且数值相同的情况
-        #此时才做递归，做下一层的判断
-        compareLeft = self.compare(tree1.left, tree2.left) #左子树：左、 右子树：左
-        compareRight = self.compare(tree1.right, tree2.right) #左子树：右、 右子树：右
-        isSame = compareLeft and compareRight #左子树：中、 右子树：中（逻辑处理）
-        return isSame
 
 """
-二叉的所有路径
+迭代法,最简单(但是需要额外的两个数组来存储,空间度太高)
 """
-from typing import List
-class Solution:
-    def binaryTreePaths(self, root: TreeNode) -> List[str]:
-        result = []
-        path = []
-        if not root:
-            return result
-        self.traversal(root, path, result)
-        return result
+
+class Solution1():
+    def isSame(self,root1:TreeNode,root2:TreeNode)->bool:
+        res1=self.getres(root1)
+        res2=self.getres(root2)
+        if res1 == res2 :
+            return True
+        return False
+    def getres(self,node):
+        if not node:
+            return []
+        res=[]
+        queue=deque([node])
+        while queue:
+            node=queue.popleft()
+            res.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return res
+            
         
-    def traversal(self, cur, path, result):
-        path.append(cur.val)
-        #这才到了叶子节点
-        if not cur.left and not cur.right:
-            sPath = ""
-            for i in range(len(path)-1):
-                sPath += str(path[i])
-                sPath += "->"
-            sPath += str(path[len(path)-1])
-            result.append(sPath)
-            return
-        if cur.left:
-            self.traversal(cur.left, path, result)
-            path.pop() #回溯
-        if cur.right:
-            self.traversal(cur.right, path, result)
-            path.pop() #回溯
+"""
+递归法,想一下是怎样的(前序)
+参数:两个头节点 返回:bool
+终止条件,如果是空节点,return 或者当判断不相等时直接强制返回-1,
+单层逻辑
+
+"""
+class Solution2():
+    def isSame(self,root1:TreeNode,root2:TreeNode)->bool:
+        return self.compare(root1,root2)
+      
+    def compare(self,node1,node2):
+        #首先排除空节点:
+        if node1==None and node2!=None:
+            return False
+        elif node1!=None and node2==None:
+            return False
+        elif not node1 and not node2:
+            return True
+        # 在排除不相等
+        elif node1.val != node2.val:
+            return False
+        # 此时都没有返回,说明这一层通过,那就递归去判断下一层
+        left=self.compare(node1.left,node2.left)
+        right=self.compare(node1.right,node2.right)
+        answer = left and right
+        return answer
+        
+
