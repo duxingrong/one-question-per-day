@@ -1,38 +1,56 @@
 """
-给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
-
-说明: 叶子节点是指没有子节点的节点。
+给定一个二叉树和一个目标和,判断该树中是否存在根节点到叶子节点的路径,这条路径上所有节点值相加等于目标和.
 """
+from typing import Optional
 class TreeNode():
-    def __init__(self,val:int,left:None,right:None):
+    def __init__(self,val=0,left=None,right=None):
         self.val=val
         self.left=left
         self.right=right
-        
-class Solution:
-    def traversal(self, cur: TreeNode, count: int) -> bool:
-        if not cur.left and not cur.right and count == 0: # 遇到叶子节点，并且计数为0
-            return True
-        if not cur.left and not cur.right: # 遇到叶子节点直接返回
+
+"""
+迭代法是无敌的,层序遍历
+"""
+
+class Solution1():
+    def __init__(self):
+        self.results=[]
+
+    def isSame(self,root:Optional[TreeNode],target:int)->bool:
+        if not root:
+            if target==0:
+                return True
             return False
-        
-        if cur.left: # 左
-            count -= cur.left.val
-            if self.traversal(cur.left, count): # 递归，处理节点
+        self.getsum(root)
+        for result  in self.results:
+            if result == target:
                 return True
-            count += cur.left.val # 回溯，撤销处理结果
-            
-        if cur.right: # 右
-            count -= cur.right.val
-            if self.traversal(cur.right, count): # 递归，处理节点
-                return True
-            count += cur.right.val # 回溯，撤销处理结果
-            
         return False
-    
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
-        if root is None:
-            return False
-        return self.traversal(root, sum - root.val)      
+            
+    def getsum(self,node):
+        stack=[node]
+        sum = 0
+        while stack:
+            node=stack.pop()
+            # 处理做了记号的
+            if node==None:
+                node=stack.pop()
+                sum-=node.val
+            sum +=node.val
+            stack.append(node)
+            stack.append(None)
+            if node.left ==None and node.right==None:
+                self.results.append(sum)
+                sum-=node.val
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+               
 
+            
+            
+            
+        
 
+        
