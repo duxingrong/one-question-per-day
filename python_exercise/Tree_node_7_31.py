@@ -32,8 +32,8 @@ class Solution1():
         
     def compare(self,left,right):
         #终止条件
-        if left=None and right!=None: return False
-        if left!=None and right=None: return False
+        if left==None and right!=None: return False
+        if left!=None and right==None: return False
         if left.val !=right.val:      return False
         if left.val == right.val:     return True
         """
@@ -68,7 +68,7 @@ class Solution2():
                 return False
             elif left.val != right.val:
                 return False
-            elif left.val = right.val:
+            elif left.val == right.val:
                 # 逻辑处理
                 queue.append(left.left)
                 queue.append(right.right)
@@ -99,7 +99,7 @@ class Solution3():
                 return False
             elif right==None and left==None:
                 return True
-            elif left.val = right.val:
+            elif left.val == right.val:
                 stack.append(left.left)
                 stack.append(right.right)
                 stack.append(left.right)
@@ -124,7 +124,7 @@ class Solution4():
                 return False
             #初始化数组储存结果
             level_vals=[]
-            for i in range(size):
+            for _ in range(size):
                 node = queue.popleft()
                 if node :
                     level_vals.append(node)
