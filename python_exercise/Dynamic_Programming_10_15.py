@@ -33,4 +33,36 @@ class Solution():
 
 """
 二进制拆分来节省时间
+他的核心就是利用如果一个物品1有13个,那么我们不需要遍历13次,而是利用二进制拆分.把物品拆分成1,2,4,..直到剩余小于二进制(分别记作物品1.1,1.2...)
+这样做的目的就是可以减少遍历次数,为什么?因为取3个物品1等价于取物品1.1和物品1.2.取5等价于取1.2,1.3
+所以当物品我们利用二进制转换成不同重量的物品时,我们遍历的次数减少,但效果和逐个遍历物品的数量是一样的
+我们k 怎么取1,2,4....呢?
+利用 k=1  while  k < amount:  for j in range(V,cost*k-1,-1): dp[j]=max(dp[j],dp[j-cost*k]+value*k)  amount-=k k*=2
+直到剩余的 if amount>0: for j in range(V,amount*cost-1,-1): dp[j]=max(dp[j],dp[j-cost*amount]+value*amount)  
 """
+
+
+class Solution1():
+    def fuction(self,N:int,V:int,M:List[int],C:List[int],W:List[int])->int:
+        #初始化dp
+        dp=[0]*(V+1)
+        #遍历物品
+        for i in range(N):
+            amount=M[i]
+            cost=C[i]
+            value=W[i]
+
+            #二进制拆分
+            k=1
+            while k<amount:
+                for j in range(V,cost*k-1,-1):
+                    dp[j]=max(dp[j],dp[j-cost*k]+value*k)
+                amount-=k
+                k*=2
+            if amount>0:
+                for j in range(V,amount*cost-1,-1):
+                    dp[j]=max(dp[j],dp[j-cost*amount]+value*amount)
+
+        return dp[V]
+
+
