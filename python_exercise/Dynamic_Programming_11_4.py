@@ -31,7 +31,7 @@ class Solution():
             dp[i][i]=1
 
         for i in range(len(s)-1,-1,-1):
-            for j in range(i+1,len(s)):
+            for j in range(i+1,len(s)): #这里之所以是i+1,是因为i==j的情况是我们的初始化，所以第推的时候就不能在推
                 if s[i]==s[j]:
                     dp[i][j]=dp[i+1][j-1]+2
                 else:
