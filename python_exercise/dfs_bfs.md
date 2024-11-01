@@ -71,33 +71,43 @@ for (选择: 本节点所连接的其他节点){
 
 
 
+# 广度优先搜索理论基础
+广搜是一圈一圈的搜索，深搜是一条路跑到黑然后再回溯
+
+广搜的搜索方式就适合于解决两个点之间的最短路径问题,因为BFS只要搜索到终点一定是一条最短路径(这里面还可以包括障碍)
 
 
+广搜是如何做到的？其实，我们仅仅需要一个容器，能保存我们要遍历过的元素就可以，用队列，栈，数组都是可以的
+
+用队列的话，就是保证每一圈都是一个方向去转
+用栈的话，就是第一圈顺时针，第二圈逆时针,第三圈再顺时针(因为栈是先进后出，加入元素和弹出元素的顺序改变了)
 
 
+广搜代码模板:
+```c++
+int dir[4][2]={0,1,1,0,-1,0,0,-1};//表示四个方向
+//grid是地图，也就是一个二维数组
+// visited标记访问过的节点，不要重复访问
+// x,y 表示开始搜索节点的下标
+void bfs(vector<vector<char>>& grid, vector<vector<bool>>&visited,int x,int y){
+    queue<pair<int,int>> que; //定义队列
+    que.push({x,y}); //起点加入队列
+    visited[x][y]=true; //只要加入队列，立刻标记为访问过的节点
+    while(!que.empty()){
+        pair<int,int> cur = que.front(); que.pop(); //从队列中取出元素
+        int curx = cur.first; 
+        int cury = cur.second; //当前节点坐标
+        for (int i=0; i<4; i++){ //开始向当前节点的四个方向左右上下去遍历
+            int nextx=curx+dir[i][0];
+            int nexty = cury+dir[i][1];//获取周边四个方向的坐标
+            if (nextx<0 || nextx>=grid.size()|| nexty<0 || nexty>=grid[0].size())  continue;
+            if (!visited[nextx][nexty]){ //如果节点没有被访问过
+                que.push({nextx,nexty}); //队列添加该节点为下一轮要遍历的节点
+                visited[nextx][nexty]=true; //只要入队立刻标记，避免重复访问
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
+    }
+    
+}
+```
