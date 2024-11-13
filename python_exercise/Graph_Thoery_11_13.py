@@ -27,3 +27,81 @@
 3. 删除边的优先级，如果有入度为2的节点，优先删除其中一条入边,如果没有入度为2的节点，那么删除最后一条导致环形成的边
 """
 
+from collections import defaultdict
+
+class Solution():
+    def __init__(self,size):
+        self.parent = list(range(size+1))
+
+    #需要用到并查集
+    def union(self,u,v):
+        root_u = self.find(u)
+        root_v = self.find(v)
+        if root_u==root_v:
+            return 
+        self.parent[v]=u
+
+    def find(self,u):
+        if u == self.parent[u]:
+            return u
+        self.parent[u]=self.find(self.parent[u])
+        return self.parent[u]
+
+    def isSame(self,u,v):
+        return self.find(u)==self.find(v)
+
+    #判断删除入度为2的一条边后，剩下的是不是有向树
+    def is_tree_after_remove_edge(self,edges,edge):
+        for i in range(len(edges)):
+            if edges[i]==edge:  #我们的目的是看剩下的边是否是有向树，所以这条冗余边要跳过
+                continue
+            #判断是否是有向树，只要看是否是同一个集合
+            s,t = edges[i]
+            if self.isSame(s,t):
+                return False
+            else:
+                self.union(s,t)
+        return True
+        
+    #如果发现没有入度为2的节点，那就说明这个图本身就有环,所以我们要找到有环的边，这里只需要按顺序去并查集就好，因为有向树就是可以用并查集特殊处理
+    def get_remove_edge(self,edges):
+        for i in range(len(edges)):
+            s,t = edges[i]
+            if self.isSame(s,t):
+                print(f"{s} {t}")
+                return 
+            else:
+                self.union(s,t)
+        
+if __name__ == "__main__":
+    n = int(input())
+    edges = []
+    in_degree = defaultdict(int)
+
+    for i in range(n):
+        s,t = map(int,input().split())
+        edges.append([s,t])
+        in_degree[t]+=1
+
+    #寻找入度为2的边，并记录下标
+    vec = []
+    #倒序,因为如果两条边删除哪一条都可以，就要优先删除后面的
+    for i  in range(len(edges)-1,-1,-1):
+        if in_degree[edges[i][1]]==2:
+            vec.append(edges[i])
+
+
+    uf = Solution(n)
+    #如果存在入度为2
+    if len(vec)>0:
+        if uf.is_tree_after_remove_edge(edges,vec[0]):  #这里因为只有一条冗余边，所以vec最多只有两个数，如果第一个删去后是有向树，就对了，否则直接删除第二个
+            s,t = vec[0]
+            print(f"{s} {t}")
+        else:
+            s,t = vec[1]
+            print(f"{s} {t}")
+
+    else:
+        uf.get_remove_edge(edges)
+
+
