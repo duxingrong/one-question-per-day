@@ -35,9 +35,10 @@ class Solution():
         def dfs(node):
             if node is None:
                 return 
-        dfs(node.left)
-        res.append(node.val)
-        dfs(node.right)
+            dfs(node.left)
+            res.append(node.val)
+            dfs(node.right)
+        dfs(root)
         return res
     
 # 后序遍历(左右中)
@@ -50,4 +51,5 @@ class Solution():
             dfs(node.left)
             dfs(node.right)
             res.append(node.val)
+        dfs(root)
         return res 
