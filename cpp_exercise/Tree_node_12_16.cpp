@@ -50,7 +50,7 @@ public:
         dfs(cur->right,res);
     }
 
-    vector<int> preorderTraversal(TreeNode*root){
+    vector<int> inorderTraversal(TreeNode*root){
         vector<int> res ;
         dfs(root,res);
         return res;
@@ -67,7 +67,7 @@ public:
         res.push_back(cur->val);
     }
 
-    vector<int> preorderTraversal(TreeNode*root){
+    vector<int> postorderTraversal(TreeNode*root){
         vector<int> res;
         dfs(root,res);
         return res;
