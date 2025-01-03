@@ -30,6 +30,8 @@ if board[row][i]==num or board[i][col]==num: return False
 
 
 from typing import List
+
+
 class Solution():
     # 主函数
     def solveSudoku(self,board:List[List[str]]):
