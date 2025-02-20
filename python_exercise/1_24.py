@@ -44,3 +44,37 @@ class Solution:
 
         return dp[0][0] # 这里一定会变成整数
 
+
+
+"""
+递归+缓存
+"""
+from functools import cache
+class Solution:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
+        m, n = len(dungeon), len(dungeon[0])
+        
+        # 递归函数，表示从(i,j)到达终点最低健康点数
+        @cache
+        def dfs(i:int,j:int)->int:
+            # 最简单的逻辑
+            if i==m-1 and j==n-1:
+                return max(1,1-dungeon[i][j])
+
+            # 一般的逻辑
+            min_health = float('inf')
+
+            # 向右边递归
+            if j+1 < n :
+                min_health = min(min_health,dfs(i,j+1))
+
+            # 向下边递归
+            if i+1 < m :
+                min_health = min(min_health,dfs(i+1,j))
+
+            # 计算当前位置的最低健康点数
+            return max(1,min_health-dungeon[i][j]) 
+
+        # 从起点(0,0)开始递归
+        return dfs(0,0)
+
